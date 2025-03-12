@@ -1,0 +1,14 @@
+C:\Users\1\OneDrive\Рабочий стол\file_manager\bin\Debug\net8.0\file_manager.exe
+C:\Users\1\OneDrive\Рабочий стол\file_manager\bin\Debug\net8.0\file_manager.deps.json
+C:\Users\1\OneDrive\Рабочий стол\file_manager\bin\Debug\net8.0\file_manager.runtimeconfig.json
+C:\Users\1\OneDrive\Рабочий стол\file_manager\bin\Debug\net8.0\file_manager.dll
+C:\Users\1\OneDrive\Рабочий стол\file_manager\bin\Debug\net8.0\file_manager.pdb
+C:\Users\1\OneDrive\Рабочий стол\file_manager\obj\Debug\net8.0\file_manager.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\1\OneDrive\Рабочий стол\file_manager\obj\Debug\net8.0\file_manager.AssemblyInfoInputs.cache
+C:\Users\1\OneDrive\Рабочий стол\file_manager\obj\Debug\net8.0\file_manager.AssemblyInfo.cs
+C:\Users\1\OneDrive\Рабочий стол\file_manager\obj\Debug\net8.0\file_manager.csproj.CoreCompileInputs.cache
+C:\Users\1\OneDrive\Рабочий стол\file_manager\obj\Debug\net8.0\file_manager.dll
+C:\Users\1\OneDrive\Рабочий стол\file_manager\obj\Debug\net8.0\refint\file_manager.dll
+C:\Users\1\OneDrive\Рабочий стол\file_manager\obj\Debug\net8.0\file_manager.pdb
+C:\Users\1\OneDrive\Рабочий стол\file_manager\obj\Debug\net8.0\file_manager.genruntimeconfig.cache
+C:\Users\1\OneDrive\Рабочий стол\file_manager\obj\Debug\net8.0\ref\file_manager.dll
