@@ -12,3 +12,4 @@ C:\Users\1\OneDrive\Рабочий стол\file_manager\obj\Debug\net8.0\refint
 C:\Users\1\OneDrive\Рабочий стол\file_manager\obj\Debug\net8.0\file_manager.pdb
 C:\Users\1\OneDrive\Рабочий стол\file_manager\obj\Debug\net8.0\file_manager.genruntimeconfig.cache
 C:\Users\1\OneDrive\Рабочий стол\file_manager\obj\Debug\net8.0\ref\file_manager.dll
+C:\Users\1\OneDrive\Рабочий стол\file_manager\obj\Debug\net8.0\file_manager.sourcelink.json

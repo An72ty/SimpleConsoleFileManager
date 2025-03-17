@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
 
 
 namespace FileManager;
@@ -23,10 +24,10 @@ public class FileManager {
         bool is_quit = false;
         do {
             // Console.WriteLine($"{currentDirectory}\n{string.Join("/\n", Directory.GetDirectories(currentDirectory))}\n{string.Join("\n", Directory.GetFiles(currentDirectory))}");
-            Console.WriteLine($"Current Directory - {currentDirectory} {Directory.GetCreationTime(currentDirectory)}");
+            Console.WriteLine($"Current Directory - {currentDirectory} {Directory.GetCreationTime(currentDirectory)} {GetDirectorySize(currentDirectory)}");
 
             foreach (string directory in Directory.GetDirectories(currentDirectory)) {
-                Console.WriteLine($"{directory}/ {Directory.GetCreationTime(directory)}");
+                Console.WriteLine($"{directory}/ {Directory.GetCreationTime(directory)} {GetDirectorySize(directory)}");
             }
 
             foreach (string file in Directory.GetFiles(currentDirectory)) {
@@ -48,27 +49,83 @@ public class FileManager {
                     //     command_args[1].Trim('"');
                     // }
 
-                    if (!Path.Exists(command_args[1]) && !Path.Exists(currentDirectory + command_args[1])) {
-                        Console.WriteLine($"Directory {command_args[1]} doesn't exists");
+                    if (CD(command_args) == "Error") {
                         break;
-                    } else if (Path.Exists(command_args[1]) && command_args[1].EndsWith("/")) {
-                        currentDirectory = command_args[1];
-                    } else if (Path.Exists(command_args[1])) {
-                        currentDirectory = command_args[1] + "/";
-                    } else if (Path.Exists(currentDirectory + command_args[1]) && command_args[1].EndsWith("/")) {
-                        currentDirectory += command_args[1];
-                    } else if (Path.Exists(currentDirectory + command_args[1])) {
-                        currentDirectory += command_args[1] + "/";
                     }
 
                     break;
+                case "del":
+                    if (Delete(command_args[1]) == "Error") {
+                        break;
+                    }
+
+                    break;
+
             }
         } while (!is_quit);
         
     }
-    private static long GetDirectorySize(string folderPath) {
-        DirectoryInfo di = new DirectoryInfo(folderPath);
-        return di.EnumerateFiles("*.*", SearchOption.TopDirectoryOnly).Sum(fi => fi.Length);
+
+    private string CD(string[] command_args) {
+        // if (!Path.Exists(command_args[1]) && !Path.Exists(currentDirectory + command_args[1])) {
+        //     Console.WriteLine($"Directory {command_args[1]} doesn't exists");
+        //     return "Error";
+        // } else if (Path.Exists(command_args[1]) && command_args[1].EndsWith("/")) {
+        //     currentDirectory = command_args[1];
+        // } else if (Path.Exists(command_args[1])) {
+        //     currentDirectory = command_args[1] + "/";
+        // } else if (Path.Exists(currentDirectory + command_args[1]) && command_args[1].EndsWith("/")) {
+        //     currentDirectory += command_args[1];
+        // } else if (Path.Exists(currentDirectory + command_args[1])) {
+        //     currentDirectory += command_args[1] + "/";
+        // }
+
+        currentDirectory = GetFullPath(command_args[1]);
+
+        return currentDirectory;
+    }
+
+    private string Delete(string path) {
+        string full_path = GetFullPath(path);
+        if (full_path == "Error") {
+            return full_path;
+        }
+        if (File.Exists(full_path.Trim('/'))) {
+            File.Delete(full_path.Trim('/'));
+        } else if (Directory.Exists(full_path)) {
+            Directory.Delete(full_path);
+        } else {
+            Console.WriteLine($"Directory {path} doesn't exists1");
+        }
+
+        return full_path;
+    }
+
+    private string GetFullPath(string path) {
+        string full_path = "Error";
+        if (!Path.Exists(path) && !Path.Exists(currentDirectory + path)) {
+            Console.WriteLine($"Directory {path} doesn't exists2");
+            return "Error";
+        } else if (Path.Exists(path) && path.EndsWith("/")) {
+            full_path = path;
+        } else if (Path.Exists(path)) {
+            full_path = path + "/";
+        } else if (Path.Exists(currentDirectory + path) && path.EndsWith("/")) {
+            full_path = currentDirectory + path;
+        } else if (Path.Exists(currentDirectory + path)) {
+            full_path = currentDirectory + path + "/";
+        }
+        
+        return full_path;
+    }
+
+    private string GetDirectorySize(string folderPath) {
+        try {
+            DirectoryInfo di = new DirectoryInfo(folderPath);
+            return Convert.ToString(di.EnumerateFiles("*.*", SearchOption.AllDirectories).Sum(fi => fi.Length));
+        } catch (Exception exception) {
+            return "Error";
+        }
     }
 }
     
