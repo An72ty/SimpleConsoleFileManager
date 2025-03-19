@@ -35,7 +35,7 @@ public class FileManager {
             }
             
             string[] command_args = Console.ReadLine().Split(" ");
-            // Console.WriteLine(string.Join("/", command_args));
+
             
             switch (command_args[0]) {
                 case "q" :
@@ -49,16 +49,16 @@ public class FileManager {
                     //     command_args[1].Trim('"');
                     // }
 
-                    if (CD(command_args) == "Error") {
-                        break;
-                    }
+                    CD(command_args);
 
                     break;
                 case "del":
-                    if (Delete(command_args[1]) == "Error") {
-                        break;
-                    }
+                    Delete(command_args[1]);
 
+                    break;
+                case "copy":
+                    Copy(command_args[1]);
+                    
                     break;
 
             }
@@ -79,8 +79,11 @@ public class FileManager {
         // } else if (Path.Exists(currentDirectory + command_args[1])) {
         //     currentDirectory += command_args[1] + "/";
         // }
-
-        currentDirectory = GetFullPath(command_args[1]);
+        string full_path = GetFullPath(command_args[1]);
+        if (full_path == "Error") {
+            return full_path;
+        }
+        currentDirectory = full_path;
 
         return currentDirectory;
     }
@@ -90,8 +93,8 @@ public class FileManager {
         if (full_path == "Error") {
             return full_path;
         }
-        if (File.Exists(full_path.Trim('/'))) {
-            File.Delete(full_path.Trim('/'));
+        if (File.Exists(full_path.TrimEnd('/'))) {
+            File.Delete(full_path.TrimEnd('/'));
         } else if (Directory.Exists(full_path)) {
             Directory.Delete(full_path);
         } else {
@@ -99,6 +102,15 @@ public class FileManager {
         }
 
         return full_path;
+    }
+
+    private string Copy(string source_path) {
+        string full_source_path = GetFullPath(source_path).TrimEnd('/');
+        if (full_source_path == "Error" || !File.Exists(full_source_path.TrimEnd('/'))) {
+            return full_source_path;
+        }
+        File.Copy(source_path, currentDirectory + source_path.Split("/").Last(), true);
+        return full_source_path.TrimEnd();
     }
 
     private string GetFullPath(string path) {
